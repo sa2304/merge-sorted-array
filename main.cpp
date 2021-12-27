@@ -7,24 +7,18 @@ using namespace std;
 class Solution {
  public:
   void merge(vector<int> &a, int m, vector<int> &b, int n) {
-    vector<int> a_data(m);
-    uninitialized_move_n(a.begin(), m, a_data.begin());
-    auto ap = a_data.begin();
-    auto bp = b.begin();
-    auto pout = a.begin();
-    while (a_data.end() != ap && b.end() != bp) {
-      if (*ap < *bp) {
-        *pout++ = *ap++;
+    int i = m - 1;
+    int k = n - 1;
+    int out = m + n - 1;
+    while (0 <= i && 0 <= k) {
+      if (a[i] < b[k]) {
+        a[out--] = b[k--];
       } else {
-        *pout++ = *bp++;
+        a[out--] = a[i--];
       }
     }
-    while (a_data.end() != ap) {
-      *pout++ = *ap++;
-    }
-    while (b.end() != bp) {
-      *pout++ = *bp++;
-    }
+    while (0 <= i) { a[out--] = a[i--]; }
+    while (0 <= k) { a[out--] = b[k--]; }
   }
 };
 
